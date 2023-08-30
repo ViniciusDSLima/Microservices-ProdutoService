@@ -2,10 +2,15 @@ package com.example.produtoservice.service;
 
 import com.example.produtoservice.entity.Produto;
 import com.example.produtoservice.model.ProdutoRequest;
+import com.example.produtoservice.model.ProdutoResponse;
 import com.example.produtoservice.repository.ProdutoRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Service
 @AllArgsConstructor
@@ -28,5 +33,20 @@ public class ProdutoServiceImpl implements ProdutoService{
 
         log.info("produto criado");
         return produto.getProdutoId();
+    }
+
+    @Override
+    public ProdutoResponse getProdutoById(Long produtoId) {
+        log.info("Buscando produto com o id informado");
+        Produto produto
+                = produtoRepository.findById(produtoId)
+                .orElseThrow(() -> new RuntimeException("Nao ha produto com esse id"));
+
+        ProdutoResponse produtoResponse
+                = new ProdutoResponse();
+
+        copyProperties(produto, produtoResponse);
+
+        return produtoResponse;
     }
 }
