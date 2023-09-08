@@ -1,14 +1,17 @@
 package com.example.produtoservice.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProdutoRequest {
-    private String nome;
-    private Long preco;
-    private int quantidade;
+@Builder
+public class ProductResponse {
+    private String name;
+    private Long productId;
+    private int quantity;
+    private Long price;
 }

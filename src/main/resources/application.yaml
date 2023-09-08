@@ -9,11 +9,11 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/produtoDB
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/ProductDB
     username: Vinicius_lima
     password: 123@Vinicius
   application:
-    name: PRODUTO-SERVICE
+    name: PRODUCT-SERVICE
   config:
     import: configserver:http://localhost:9226
 #eureka:

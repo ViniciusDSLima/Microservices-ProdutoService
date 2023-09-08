@@ -1,38 +1,37 @@
 package com.example.produtoservice.controller;
 
-import com.example.produtoservice.model.ProdutoRequest;
-import com.example.produtoservice.model.ProdutoResponse;
-import com.example.produtoservice.service.ProdutoService;
+import com.example.produtoservice.model.ProductRequest;
+import com.example.produtoservice.model.ProductResponse;
+import com.example.produtoservice.service.ProductService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/products")
 @AllArgsConstructor
 public class ProdutoController {
 
-    private ProdutoService produtoService;
+    private ProductService productService;
     @PostMapping
-    public ResponseEntity<Long> addProduto(@RequestBody ProdutoRequest produtoRequest){
-        Long produtoId = produtoService.addProduto(produtoRequest);
+    public ResponseEntity<Long> addProduto(@RequestBody ProductRequest productRequest){
+        Long produtoId = productService.addProduto(productRequest);
 
         return new ResponseEntity<>(produtoId, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProdutoResponse> getProdutoById(@PathVariable("id") Long produtoId){
-        ProdutoResponse produtoResponse
-                = produtoService.getProdutoById(produtoId);
+    public ResponseEntity<ProductResponse> getProdutoById(@PathVariable("id") Long productId){
+        ProductResponse productResponse
+                = productService.getProdutoById(productId);
 
-        return new ResponseEntity<>(produtoResponse, HttpStatus.OK);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
-    @PutMapping("/redureQuantity/{id}")
-    public ResponseEntity reduceQuantity(@PathVariable Long produtoId, @RequestParam int quantidade){
+    @PutMapping("/reduceQuantity/{id}")
+    public ResponseEntity reduceQuantity(@PathVariable("id") Long productId, @RequestParam int quantity){
 
-        produtoService.reduceQuantity(produtoId, quantidade);
+        productService.reduceQuantity(productId, quantity);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
